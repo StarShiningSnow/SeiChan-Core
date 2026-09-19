@@ -3,6 +3,7 @@ import os
 import discord
 import dotenv
 
+import ai
 import map
 
 dotenv.load_dotenv()
@@ -11,6 +12,7 @@ client = discord.Client(intents=discord.Intents.default())
 tree = discord.app_commands.CommandTree(client)
 
 map.setup(tree)
+ai.setup(tree)
 
 
 @client.event

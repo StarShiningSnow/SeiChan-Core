@@ -4,6 +4,7 @@ import discord
 import dotenv
 
 import ai
+import line
 import map
 
 dotenv.load_dotenv()
@@ -13,6 +14,7 @@ tree = discord.app_commands.CommandTree(client)
 
 map.setup(tree)
 ai.setup(tree)
+line.setup(tree)
 
 
 @client.event

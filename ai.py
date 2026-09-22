@@ -11,9 +11,7 @@ def setup(tree):
     )
     async def ai(interaction, message: str):
         await interaction.response.defer()
-
         response = client.models.generate_content(
             model="gemini-3.5-flash-lite", contents=message
         )
-
         await interaction.followup.send(response.text)

@@ -27,18 +27,12 @@ def setup(tree):
     async def line(interaction, line: str, stations: str):
         stations_list = stations.split()
         color = lines[line]
-
         width = 220 * (len(stations_list) - 1) + 120
-        height = 220
-
-        img = Image.new("RGB", (width, height), "white")
+        img = Image.new("RGB", (width, 220), "white")
         draw = ImageDraw.Draw(img)
-
         font = ImageFont.truetype("/System/Library/Fonts/STHeiti Medium.ttc", 25)
-
         y = 100
         draw.line((60, y, 60 + 220 * (len(stations_list) - 1), y), fill=color, width=20)
-
         for i, station in enumerate(stations_list):
             x = 60 + 220 * i
             if i in (0, len(stations_list) - 1):
@@ -56,9 +50,7 @@ def setup(tree):
                     width=8,
                 )
             draw.text((x, y + 40), station, fill="black", font=font, anchor="ma")
-
         buffer = io.BytesIO()
         img.save(buffer, "PNG")
         buffer.seek(0)
-
         await interaction.response.send_message(file=discord.File(buffer, "line.png"))

@@ -23,20 +23,24 @@ WAN_IP = os.environ["WAN_IP"]
 
 
 async def track_trains():
-    async with (
-        aiohttp.ClientSession() as session,
-        session.get(f"http://{LAN_IP}:3876/api/trains.rt") as response,
-    ):
-        async for line in response.content:
-            if line.startswith(b"data:"):
-                for train in json.loads(line[5:])["trains"]:
-                    name = train["name"].split(" ")[0]
-                    if name.endswith("線"):
-                        point = train["cars"][0]["leading"]["location"]
-                        track = train_tracks.setdefault(
-                            train["id"], {"name": name, "points": []}
-                        )
-                        track["points"].append((point["x"], point["z"]))
+    while True:
+        try:
+            async with (
+                aiohttp.ClientSession() as session,
+                session.get(f"http://{LAN_IP}:3876/api/trains.rt") as response,
+            ):
+                async for line in response.content:
+                    if line.startswith(b"data:"):
+                        for train in json.loads(line[5:])["trains"]:
+                            name = train["name"].split(" ")[0]
+                            if name.endswith("線"):
+                                point = train["cars"][0]["leading"]["location"]
+                                track = train_tracks.setdefault(
+                                    train["id"], {"name": name, "points": []}
+                                )
+                                track["points"].append((point["x"], point["z"]))
+        except TimeoutError:
+            pass
 
 
 def start():
@@ -62,19 +66,18 @@ async def render():
     font = ImageFont.truetype("/System/Library/Fonts/STHeiti Medium.ttc", 20)
     for track in train_tracks.values():
         if track["name"] in line_colors:
-            points = [(x + 1212.5, z + 912.5) for x, z in track["points"]]
+            points = [(x + 3019.5, z + 2319.5) for x, z in track["points"]]
             color = line_colors[track["name"]]
-            draw.line(points, fill=color, width=8)
+            draw.line(points, fill=color, width=5)
             x, y = points[-1]
             draw.ellipse(
-                (x - 6, y - 6, x + 6, y + 6),
-                fill="white",
-                outline=color,
+                (x - 7, y - 7, x + 7, y + 7),
+                fill=color,
                 width=3,
             )
     for name, locations in stations.items():
-        x = sum(p["x"] for p in locations) / len(locations) + 1212.5
-        y = sum(p["z"] for p in locations) / len(locations) + 912.5
+        x = sum(p["x"] for p in locations) / len(locations) + 3019.5
+        y = sum(p["z"] for p in locations) / len(locations) + 2319.5
         draw.ellipse(
             (x - 7, y - 7, x + 7, y + 7), fill="white", outline="black", width=3
         )
@@ -88,6 +91,9 @@ async def render():
 
 
 class Refresh(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
     @discord.ui.button(label="更新", style=discord.ButtonStyle.primary)
     async def refresh(self, interaction, button):
         await interaction.response.defer()

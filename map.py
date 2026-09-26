@@ -22,12 +22,12 @@ def setup(tree):
                     return x, z, await r.read()
 
             tiles = await asyncio.gather(
-                *(get(x, z) for x in range(-2, 3) for z in range(-2, 3))
+                *(get(x, z) for x in range(-6, -1) for z in range(-5, 0))
             )
         output = Image.new("RGBA", (2505, 2505))
         for x, z, data in tiles:
             img = Image.open(io.BytesIO(data))
-            output.paste(img.crop((0, 0, 501, 501)), ((x + 2) * 501, (z + 2) * 501))
+            output.paste(img.crop((0, 0, 501, 501)), ((x + 6) * 501, (z + 5) * 501))
         buffer = io.BytesIO()
         output.save(buffer, "PNG")
         buffer.seek(0)

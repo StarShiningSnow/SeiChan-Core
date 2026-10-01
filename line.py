@@ -46,7 +46,7 @@ def setup(tree):
                 draw.ellipse(
                     (x - 15, y - 15, x + 15, y + 15),
                     fill="white",
-                    outline=color,
+                    outline="black",
                     width=8,
                 )
             draw.text((x, y + 40), station, fill="black", font=font, anchor="ma")

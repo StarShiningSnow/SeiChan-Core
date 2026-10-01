@@ -31,13 +31,4 @@ def setup(tree):
         buffer = io.BytesIO()
         output.save(buffer, "PNG")
         buffer.seek(0)
-        embed = discord.Embed(
-            title="🗺️ 帝国領土全域図",
-            color=discord.Color.pink(),
-            url=f"http://{WAN_IP}:8100",
-        )
-        embed.set_image(url="attachment://map.png")
-        embed.set_footer(text="⚙️ • 連邦省情報局")
-        await interaction.followup.send(
-            file=discord.File(buffer, "map.png"), embed=embed
-        )
+        await interaction.followup.send(file=discord.File(buffer, "map.png"))

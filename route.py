@@ -22,20 +22,24 @@ async def record_train():
                         trains.setdefault(train["id"],{"name":name,"path":[]})
                         trains[train["id"]]["path"].append((loc["x"],loc["z"]))
 
-async def draw_route():
-    async with aiohttp.ClientSession() as session:
-        async with session.get(f"http://{os.getenv('LAN_IP')}:3876/api/network") as r:
+async def get_stations():
+    async with aiohttp.ClientSession() as s:
+        async with s.get(f"http://{os.getenv('LAN_IP')}:3876/api/network") as r:
             data = await r.json(content_type=None)
-    img = Image.new("RGBA",(2505,2505),(255,255,255,0))
-    draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("/Library/Fonts/Arial Unicode.ttf",25)
     stations = {}
     for item in data["stations"]:
         name = item["name"]
         if "站" not in name: continue
         name = name[:name.index("站")+1]
         if name in stations: continue
-        stations[name] = (item["location"]["x"],item["location"]["z"])
+        stations[name] = item["location"]["x"],item["location"]["z"]
+    return stations
+
+async def draw_route():
+    stations = await get_stations()
+    img = Image.new("RGBA",(2505,2505),(255,255,255,0))
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("/Library/Fonts/Arial Unicode.ttf",25)
     for train in trains.values():
         points = [(x+3000,z+2500) for x,z in train["path"]]
         draw.line(points,fill=lines[train["name"]],width=20)

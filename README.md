@@ -8,7 +8,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.14-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.14">
   <img src="https://img.shields.io/badge/discord.py-2.7.1-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="discord.py">
-  <img src="https://img.shields.io/badge/Version-9.0-lightgrey?style=for-the-badge" alt="Version 9.0">
+  <img src="https://img.shields.io/badge/Version-10.0-lightgrey?style=for-the-badge" alt="Version 10.0">
 </p>
 
 ---
@@ -24,6 +24,7 @@ SeiChan-Core 是一個高度個人化的 Discord 工具箱，將 Minecraft 地�
 | 地圖整合      | `/hybrid` | 疊加 Minecraft 地圖與鐵道路線 |
 | 路線設計      | `/line`   | 生成簡化的捷運風格路線圖         |
 | 地圖拓樸      | `/topo`   | 將車站與鐵道連線整理成拓樸圖 |
+| 重新啟動      | `/restart`   | 重新啟動機器人 |
 
 ---
 
@@ -92,6 +93,10 @@ SeiChan-Core 是一個高度個人化的 Discord 工具箱，將 Minecraft 地�
 
 此功能不需要預先手動輸入每條路線包含哪些車站，而是根據現有列車軌跡與車站資料生成。
 
+### 🔄 `/restart` — Restart Bot
+
+遠端控制重啟機器人。
+
 ---
 
 ## 🧩 Architecture
@@ -103,6 +108,7 @@ SeiChan-Core/
 ├── main.py             # Bot 啟動與指令註冊
 ├── map.py              # Minecraft / BlueMap 地圖
 ├── route.py            # Create 鐵道軌跡與車站
+├── restart.py          # 重新啟動機器人
 ├── hybrid.py           # 地圖與鐵道圖合成
 ├── line.py             # 捷運路線圖生成
 ├── topo.py             # 鐵道拓樸圖
@@ -145,6 +151,7 @@ LAN_IP=your_minecraft_server_lan_ip
 | ---------- | ------------------------------------------- |
 | `DC_TOKEN` | Discord Bot Token                           |
 | `LAN_IP`   | Minecraft、BlueMap 與 Railway Navigator 的區網位址 |
+| `ADMIN_ID` | Discord管理員使用者ID |
 
 > 請勿將包含真實 Token 或私人 IP 設定的 `.env` 提交到 GitHub。
 
@@ -199,6 +206,10 @@ SeiChan-Core 不是追求功能繁多的萬用 Bot，而是自己的 Minecraft�
 
 ## 📝 Changelog
 
+### Version 10.0 （Release on Oct 11, 2026）
+
+* **新增模組：`/restart`** — 遠端控制重新啟動機器人。
+
 ### Version 9.0 （Release on Oct 11, 2026）
 
 * **新增模組：`/topo`** — 根據列車行駛軌跡生成鐵道拓樸圖。
@@ -239,7 +250,7 @@ SeiChan-Core 不是追求功能繁多的萬用 Bot，而是自己的 Minecraft�
 
 ## 📌 Project Status
 
-**SeiChan-Core v9.0**
+**SeiChan-Core v10.0**
 
 目前專案以實際使用需求為主，持續維護既有功能並探索新的鐵道資訊視覺化工具。
 

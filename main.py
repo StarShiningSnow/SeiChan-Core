@@ -1,10 +1,10 @@
-import discord,os,asyncio,dotenv,hybrid,line,map,route,topo
+import discord,os,asyncio,dotenv,hybrid,line,map,route,topo,restart
 
 dotenv.load_dotenv()
 client = discord.Client(intents=discord.Intents.default())
 tree = discord.app_commands.CommandTree(client)
 
-for m in (hybrid,line,map,route,topo):
+for m in (hybrid,line,map,route,topo,restart):
     m.setup(tree)
 
 @client.event

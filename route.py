@@ -37,15 +37,15 @@ async def get_stations():
 
 async def draw_route():
     stations = await get_stations()
-    img = Image.new("RGBA",(2505,2505),(255,255,255,0))
+    img = Image.new("RGBA",(4509,2505),(255,255,255,0))
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("/Library/Fonts/Arial Unicode.ttf",25)
     for train in trains.values():
-        points = [(x+3000,z+2500) for x,z in train["path"]]
+        points = [(x+4002,z+2500) for x,z in train["path"]]
         draw.line(points,fill=lines[train["name"]],width=20)
     for name,(x,z) in stations.items():
-        draw.ellipse((x+3000-20,z+2500-20,x+3000+20,z+2500+20),fill="white",outline="black",width=10)
-        draw.text((x+3000+30,z+2500-30),name,fill="black",font=font)
+        draw.ellipse((x+4002-20,z+2500-20,x+4002+20,z+2500+20),fill="white",outline="black",width=10)
+        draw.text((x+4002+30,z+2500-30),name,fill="black",font=font)
     return img
 
 def setup(tree):

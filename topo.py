@@ -5,7 +5,7 @@ def setup(tree):
     @tree.command()
     async def topo(interaction):
         stations = await route.get_stations()
-        img = Image.new("RGB",(2505,2505),"white")
+        img = Image.new("RGB",(4509,2505),"white")
         draw = ImageDraw.Draw(img)
         font = ImageFont.truetype("/Library/Fonts/Arial Unicode.ttf",25)
         edges = {}
@@ -39,7 +39,7 @@ def setup(tree):
             for i,line in enumerate(lines):
                 shift = (i-(len(lines)-1)/2)*20
                 ox,oz = -dz/length*shift,dx/length*shift
-                draw.line((x1+3000+ox,z1+2500+oz,x2+3000+ox,z2+2500+oz),fill=route.lines[line],width=20)
+                draw.line((x1+4002+ox,z1+2500+oz,x2+4002+ox,z2+2500+oz),fill=route.lines[line],width=20)
         ends = {station for edge in edges for station in edge if sum(station in e for e in edges) == 1}
         for name,(x,z) in points.items():
             lines = station_lines.get(name,set())
@@ -47,9 +47,9 @@ def setup(tree):
             fill = color if name in ends and len(lines) == 1 else "white"
             if len(lines)>1:
                 for r,fill in ((20,"black"),(13,"white"),(7,"black")):
-                    draw.ellipse((x+3000-r,z+2500-r,x+3000+r,z+2500+r),fill=fill)
-            else: draw.ellipse((x+3000-20,z+2500-20,x+3000+20,z+2500+20),fill=fill,outline=color,width=10)
-            draw.text((x+3000+30,z+2500-30),name,fill="black",font=font)
+                    draw.ellipse((x+4002-r,z+2500-r,x+4002+r,z+2500+r),fill=fill)
+            else: draw.ellipse((x+4002-20,z+2500-20,x+4002+20,z+2500+20),fill=fill,outline=color,width=10)
+            draw.text((x+4002+30,z+2500-30),name,fill="black",font=font)
         output = io.BytesIO()
         img.save(output,"PNG")
         output.seek(0)

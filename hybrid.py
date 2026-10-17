@@ -4,6 +4,7 @@ from PIL import Image
 def setup(tree):
     @tree.command()
     async def hybrid(interaction):
+        await interaction.response.defer()
         base = await map.draw_map()
         overlay = await route.draw_route()
         img = Image.blend(base,Image.new("RGB",base.size,"white"),0.5)
@@ -11,4 +12,4 @@ def setup(tree):
         output = io.BytesIO()
         img.save(output,"PNG")
         output.seek(0)
-        await interaction.response.send_message(file=discord.File(output,"hybrid.png"))
+        await interaction.followup.send(file=discord.File(output,"hybrid.png"))

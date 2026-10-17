@@ -8,7 +8,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.14-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.14">
   <img src="https://img.shields.io/badge/discord.py-2.7.1-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="discord.py">
-  <img src="https://img.shields.io/badge/Version-10.0-lightgrey?style=for-the-badge" alt="Version 10.0">
+  <img src="https://img.shields.io/badge/Version-11.0-lightgrey?style=for-the-badge" alt="Version 10.0">
 </p>
 
 ---
@@ -25,6 +25,7 @@ SeiChan-Core 是一個高度個人化的 Discord 工具箱，將 Minecraft 地�
 | 路線設計      | `/line`   | 生成簡化的捷運風格路線圖         |
 | 地圖拓樸      | `/topo`   | 將車站與鐵道連線整理成拓樸圖 |
 | 重新啟動      | `/restart`   | 重新啟動機器人 |
+| 站牌設計      | `/sign`   | 設計捷運站名牌 |
 
 ---
 
@@ -97,6 +98,10 @@ SeiChan-Core 是一個高度個人化的 Discord 工具箱，將 Minecraft 地�
 
 遠端控制重啟機器人。
 
+### 🚇 `/sign` — Station Sign Generator
+
+快速生成捷運站名牌。
+
 ---
 
 ## 🧩 Architecture
@@ -112,6 +117,7 @@ SeiChan-Core/
 ├── hybrid.py           # 地圖與鐵道圖合成
 ├── line.py             # 捷運路線圖生成
 ├── topo.py             # 鐵道拓樸圖
+├── sign.py             # 捷運站名牌
 ├── requirements.txt    # Python 套件依賴
 ├── .env.example        # 環境變數範例
 └── README.md
@@ -145,6 +151,7 @@ pip install -r requirements.txt
 ```env
 DC_TOKEN=your_discord_bot_token
 LAN_IP=your_minecraft_server_lan_ip
+ADMIN_ID=your_discord_user_id
 ```
 
 | 變數         | 用途                                          |
@@ -206,6 +213,10 @@ SeiChan-Core 不是追求功能繁多的萬用 Bot，而是自己的 Minecraft�
 
 ## 📝 Changelog
 
+### Version 11.0 （Release on Oct 17, 2026）
+
+* **新增模組：`/sign`** — 生成捷運站名牌。
+
 ### Version 10.0 （Release on Oct 11, 2026）
 
 * **新增模組：`/restart`** — 遠端控制重新啟動機器人。
@@ -250,7 +261,7 @@ SeiChan-Core 不是追求功能繁多的萬用 Bot，而是自己的 Minecraft�
 
 ## 📌 Project Status
 
-**SeiChan-Core v10.0**
+**SeiChan-Core v11.0**
 
 目前專案以實際使用需求為主，持續維護既有功能並探索新的鐵道資訊視覺化工具。
 
